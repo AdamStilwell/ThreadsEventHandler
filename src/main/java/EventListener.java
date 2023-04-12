@@ -1,3 +1,5 @@
+import java.beans.EventHandler;
+
 public class EventListener extends Thread {
 
     private String messageToListenFor;
@@ -17,16 +19,25 @@ public class EventListener extends Thread {
     }
 
     public void run() {
+        while(!readyToQuit()){
+            if(shouldReply()){
+                reply();
+            }else{
+                eventTracker.push(messageToListenFor);
+            }
+        }
+        System.exit(0);
     }
 
     public Boolean readyToQuit() {
-        return null;
+        return eventTracker.has("quit");
     }
 
     public Boolean shouldReply() {
-        return null;
+        return eventTracker.has(messageToListenFor);
     }
 
     public void reply() {
+        eventTracker.handle(messageToListenFor, () -> {System.out.println(messageToReplyWith);});
     }
 }

@@ -8,14 +8,14 @@ public class EventTracker implements Tracker {
     private Map<String, Integer> tracker;
 
     @Override
-    public Map<String, Integer> tracker(){return null;}
+    public Map<String, Integer> tracker(){return tracker;}
 
     private EventTracker() {
         this.tracker = new HashMap<>();
     }
 
     synchronized public static EventTracker getInstance() {
-        return null;
+        return INSTANCE;
     }
 
     synchronized public void push(String message) {
@@ -31,6 +31,7 @@ public class EventTracker implements Tracker {
     }
 
     synchronized public void handle(String message, EventHandler e) {
+        e.handle();
         if(has(message)){
             tracker.replace(message, tracker.get(message)-1);
         }
