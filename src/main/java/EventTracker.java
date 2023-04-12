@@ -27,10 +27,13 @@ public class EventTracker implements Tracker {
     }
 
     synchronized public Boolean has(String message) {
-        return tracker.containsKey(message);
+        return tracker.containsKey(message) && tracker.get(message) > 0;
     }
 
     synchronized public void handle(String message, EventHandler e) {
+        if(has(message)){
+            tracker.replace(message, tracker.get(message)-1);
+        }
     }
 
     // Do not use this. This constructor is for tests only
