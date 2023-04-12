@@ -7,6 +7,9 @@ public class EventTracker implements Tracker {
 
     private Map<String, Integer> tracker;
 
+    @Override
+    public Map<String, Integer> tracker(){return null;}
+
     private EventTracker() {
         this.tracker = new HashMap<>();
     }
