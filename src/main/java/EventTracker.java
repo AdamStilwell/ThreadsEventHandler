@@ -19,10 +19,15 @@ public class EventTracker implements Tracker {
     }
 
     synchronized public void push(String message) {
+        if(has(message)){
+            tracker.replace(message, tracker.get(message)+1);
+        }else{
+            tracker.put(message, 1);
+        }
     }
 
     synchronized public Boolean has(String message) {
-        return null;
+        return tracker.containsKey(message);
     }
 
     synchronized public void handle(String message, EventHandler e) {
